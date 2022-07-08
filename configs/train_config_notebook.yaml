@@ -1,0 +1,28 @@
+input_data_path: "../data/wines_SPA.csv"
+output_data_featurized_path: "../data/data_featurized.csv"
+output_data_train_path: "../data/train.csv"
+output_data_test_path: "../data/test.csv"
+output_target_train_path: "../data/train_target.csv"
+output_target_test_path: "../data/test_target.csv"
+output_model_path: "../models/model.pkl"
+output_transformer_path: "../models/transformer.pkl"
+metric_path: "../models/metrics.json"
+splitting_params:
+  val_size: 0.2
+  random_state: 42
+train_params:
+  model_type: "RandomForestClassifier"
+  max_depth: 10
+  random_state: 42
+feature_params:
+  categorical_features:
+    - 'winery'
+    - 'wine'
+    - 'year'
+    - 'region'
+    - 'type'
+  numerical_features:
+    - 'rating'
+    - 'body'
+    - 'acidity'
+  target_col: 'price'
