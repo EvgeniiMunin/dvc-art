@@ -1,0 +1,4 @@
+outs:
+- md5: 44ced17481f753b483b38e8b3c09617b
+  size: 688191
+  path: wines_SPA.csv
