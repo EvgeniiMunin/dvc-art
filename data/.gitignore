@@ -1,1 +1,7 @@
 /wines_SPA.csv
+/data_featurized.csv
+/data_target.csv
+/train.csv
+/test.csv
+/train_target.csv
+/test_target.csv

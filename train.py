@@ -41,8 +41,11 @@ if __name__ == "__main__":
     train_features = pd.read_csv(training_pipeline_params.output_data_train_path)
     train_target = pd.read_csv(training_pipeline_params.output_target_train_path)
 
+    print(train_target.columns)
+    print(train_features.shape, train_target['price'].shape)
+
     model = train_model(
-        train_features, train_target, training_pipeline_params.train_params
+        train_features, train_target['price'], training_pipeline_params.train_params
     )
 
     serialize_model(model, training_pipeline_params.output_model_path)
