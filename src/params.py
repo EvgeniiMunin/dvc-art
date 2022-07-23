@@ -2,7 +2,8 @@ from dataclasses import dataclass, field
 from marshmallow_dataclass import class_schema
 import logging
 import sys
-from typing import List, Optional
+from typing import List
+import yaml
 
 logger = logging.getLogger(__name__)
 handler = logging.StreamHandler(sys.stdout)
@@ -37,6 +38,7 @@ class TrainingParams:
 @dataclass()
 class TrainingPipelineParams:
     output_data_featurized_path: str
+    output_data_target_path: str
     output_data_train_path: str
     output_data_test_path: str
     output_target_train_path: str
@@ -48,6 +50,14 @@ class TrainingPipelineParams:
     feature_params: FeatureParams
     train_params: TrainingParams
     input_data_path: str = field(default="data/wines_SPA.csv")
+
+
+def read_training_pipeline_params(path: str) -> TrainingPipelineParams:
+    with open(path, "r") as input_stream:
+        config_dict = yaml.safe_load(input_stream)
+        schema = TrainingPipelineParamsSchema().load(config_dict)
+        #logger.info(f"Check schema: {schema}")
+        return schema
 
 
 TrainingPipelineParamsSchema = class_schema(TrainingPipelineParams)

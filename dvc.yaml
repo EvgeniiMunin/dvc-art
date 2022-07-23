@@ -1,0 +1,35 @@
+stages:
+  feature-extraction:
+    cmd: python featurization.py
+    deps:
+    - data/wines_SPA.csv
+    - featurization.py
+    outs:
+    - data/data_featurized.csv
+    - data/data_target.csv
+  split-dataset:
+    cmd: python split_dataset.py
+    deps:
+    - data/data_featurized.csv
+    - split_dataset.py
+    outs:
+    - data/test.csv
+    - data/test_target.csv
+    - data/train.csv
+    - data/train_target.csv
+  train:
+    cmd: python train.py
+    deps:
+    - data/train.csv
+    - data/train_target.csv
+    - train.py
+    outs:
+    - models/model.pkl
+  evaluate:
+    cmd: python evaluate.py
+    deps:
+    - data/test.csv
+    - data/test_target.csv
+    - evaluate.py
+    metrics:
+    - models/metrics.json

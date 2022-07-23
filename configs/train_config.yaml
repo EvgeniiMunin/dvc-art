@@ -1,5 +1,6 @@
 input_data_path: "data/wines_SPA.csv"
 output_data_featurized_path: "data/data_featurized.csv"
+output_data_target_path: "data/data_target.csv"
 output_data_train_path: "data/train.csv"
 output_data_test_path: "data/test.csv"
 output_target_train_path: "data/train_target.csv"
@@ -11,7 +12,7 @@ splitting_params:
   val_size: 0.2
   random_state: 42
 train_params:
-  model_type: "RandomForestClassifier"
+  model_type: "RandomForestRegressor"
   max_depth: 10
   random_state: 42
 feature_params:

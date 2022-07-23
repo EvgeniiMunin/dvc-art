@@ -2,10 +2,9 @@ import sys
 import pandas as pd
 import logging
 from sklearn.pipeline import Pipeline
-from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
 
-from params import FeatureParams
+from src.params import FeatureParams
 
 logger = logging.getLogger(__name__)
 handler = logging.StreamHandler(sys.stdout)
@@ -19,23 +18,6 @@ def build_numerical_pipeline() -> Pipeline:
 
 def build_categorical_pipeline() -> Pipeline:
     return Pipeline([("ohe", OneHotEncoder())])
-
-
-def build_transformer(params: FeatureParams) -> ColumnTransformer:
-    return ColumnTransformer(
-        [
-            (
-                "categorical_pipeline",
-                build_categorical_pipeline(),
-                params.categorical_features
-            ),
-            (
-                "numerical_pipeline",
-                build_numerical_pipeline(),
-                params.numerical_features
-            )
-        ]
-    )
 
 
 def process_categorical_features(df: pd.DataFrame) -> pd.DataFrame:
@@ -54,10 +36,14 @@ def process_features(
     categorical_pipeline: Pipeline,
     numerical_pipeline: Pipeline,
     df: pd.DataFrame,
-    params: FeatureParams
+    params: FeatureParams,
 ) -> pd.DataFrame:
-    categorical_df = pd.DataFrame(categorical_pipeline.fit_transform(df[params.categorical_features]).toarray())
-    numerical_df = pd.DataFrame(numerical_pipeline.fit_transform(df[params.numerical_features]))
+    categorical_df = pd.DataFrame(
+        categorical_pipeline.fit_transform(df[params.categorical_features]).toarray()
+    )
+    numerical_df = pd.DataFrame(
+        numerical_pipeline.fit_transform(df[params.numerical_features])
+    )
     return pd.concat([numerical_df, categorical_df], axis=1)
 
 

@@ -1,6 +1,8 @@
 [core]
-    remote = storage
+    remote = mys3remote
 ['remote "myremote"']
     url = /tmp/dvc-storage
 ['remote "storage"']
+    url = s3://dvc-exp-wines
+['remote "mys3remote"']
     url = s3://dvc-exp-wines
