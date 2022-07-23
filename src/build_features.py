@@ -2,7 +2,7 @@ import sys
 import pandas as pd
 import logging
 from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import OneHotEncoder, MinMaxScaler
+from sklearn.preprocessing import OneHotEncoder, StandardScaler
 
 from src.params import FeatureParams
 
@@ -13,7 +13,7 @@ logger.addHandler(handler)
 
 
 def build_numerical_pipeline() -> Pipeline:
-    return Pipeline([("scaler", MinMaxScaler())])
+    return Pipeline([("scaler", StandardScaler())])
 
 
 def build_categorical_pipeline() -> Pipeline:
